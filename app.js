@@ -16,7 +16,7 @@ app.post("/urim", (req, res) => {
             {
                 "name": "3층에서 먹기",
                 "integration": {
-                    "url": `${server_url}${port}/choice`,
+                    "url": `${server_url}:${port}/choice`,
                     "context": {
                         "floor": 0
                     }
@@ -25,7 +25,7 @@ app.post("/urim", (req, res) => {
             {
                 "name": "1층에서 먹기",
                 "integration": {
-                    "url": `${server_url}${port}/choice`,
+                    "url": `${server_url}:${port}/choice`,
                     "context": {
                         "floor": 1
                     }
@@ -34,7 +34,7 @@ app.post("/urim", (req, res) => {
             {
                 "name": "지하에서 먹기",
                 "integration": {
-                    "url": `${server_url}${port}/choice`,
+                    "url": `${server_url}:${port}/choice`,
                     "context": {
                         "action": "do_something",
                         "floor": 2
@@ -44,7 +44,7 @@ app.post("/urim", (req, res) => {
             {
                 "name": "밖에서 먹기",
                 "integration": {
-                    "url": `${server_url}${port}/choice`,
+                    "url": `${server_url}:${port}/choice`,
                     "context": {
                         "floor": 3
                     }
@@ -53,7 +53,7 @@ app.post("/urim", (req, res) => {
             {
                 "name": "아무거나 먹기",
                 "integration": {
-                    "url": `${server_url}${port}/choice`,
+                    "url": `${server_url}:${port}/choice`,
                     "context": {
                         "floor": 4
                     }
