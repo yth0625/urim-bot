@@ -1,67 +1,35 @@
 import express from "express";
 import bodyparser from "body-parser";
 import menu from "./menu.js";
-
 const app = express();
 const server_url = '';
 const port = 8625;
-
 app.use(bodyparser.urlencoded({'extended':'true'}));
 app.use(bodyparser.json());
-  
+
+function action(name, floor) {
+    return {
+        name: name,
+        integration: {
+            url: `${server_url}:${port}/choice`,
+            context: {
+                floor: floor
+            }
+        }
+    };
+}
+
 app.post("/urim", (req, res) => {
     const attachments = [{
         "text": "점심먹을 장소를 골라주세요.",
         "actions": [
-            {
-                "name": "3층에서 먹기",
-                "integration": {
-                    "url": `${server_url}:${port}/choice`,
-                    "context": {
-                        "floor": 0
-                    }
-                }
-            }, 
-            {
-                "name": "1층에서 먹기",
-                "integration": {
-                    "url": `${server_url}:${port}/choice`,
-                    "context": {
-                        "floor": 1
-                    }
-                }
-            },
-            {
-                "name": "지하에서 먹기",
-                "integration": {
-                    "url": `${server_url}:${port}/choice`,
-                    "context": {
-                        "action": "do_something",
-                        "floor": 2
-                    }
-                }
-            },
-            {
-                "name": "밖에서 먹기",
-                "integration": {
-                    "url": `${server_url}:${port}/choice`,
-                    "context": {
-                        "floor": 3
-                    }
-                }
-            },
-            {
-                "name": "아무거나 먹기",
-                "integration": {
-                    "url": `${server_url}:${port}/choice`,
-                    "context": {
-                        "floor": 4
-                    }
-                }
-            }
+            action("3층에서 먹기", 0), 
+            action("1층에서 먹기", 1), 
+            action("지하에서 먹기", 2),
+            action("밖에서 먹기", 3),
+            action("아무거나 먹기", 4)
         ]
     }];
-
     res.send({
         response_type: "in_channel", attachments: attachments
     });
@@ -78,7 +46,6 @@ app.post("/choice", (req, res) => {
             }],
         image_url: ""
     }];
-
     if (choice_value === 4) {
         const random_floor = Math.floor(Math.random() * menu.length);
         const random_food = Math.floor(Math.random() * menu[random_floor][0].length);
@@ -97,5 +64,4 @@ app.post("/choice", (req, res) => {
         }
     });
 });
-
 app.listen(port, () => console.log('app listening on port ' + port));
