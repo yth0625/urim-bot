@@ -3,7 +3,7 @@ const bodyparser = require('body-parser');
 
 const menus = require('./menu');
 
-const SERVER_URL = process.env['SERVER_URL'];
+const SERVER_URL = process.env['URIM_URL'] || 'http://localhost';
 const PORT = process.env['PORT'] || 8625;
 
 const app = express();
